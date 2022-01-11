@@ -18,7 +18,7 @@ function App() {
                 setUserObject(response);
             })()
         }
-    },[navigate, params.id])
+    },[])
 
     return (
         <>
