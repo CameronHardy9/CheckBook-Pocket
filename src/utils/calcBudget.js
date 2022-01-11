@@ -6,7 +6,7 @@ function calcBudget(budget, purchases) {
         spending += item.amount;
     })
 
-    return selectedBudget - spending;
+    return (selectedBudget - spending).toFixed(2);
 }
 
 export default calcBudget;
