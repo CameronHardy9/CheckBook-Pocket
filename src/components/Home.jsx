@@ -13,10 +13,11 @@ function Home(props) {
     const [value, setValue] = useState(0);
     const [setBud, setSetBud] = useState(props.setBud);
     const [currBud, setCurrBud] = useState(props.currBud);
+    const calc = 100 /* (currBud / setBud) * 100 */
 
     return (
     <>
-        <BudgetVisual value={(currBud / setBud) * 100} />
+        <BudgetVisual value={calc <= 0 ? 0 : calc} />
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
                 <BottomNavigation
