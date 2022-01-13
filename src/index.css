@@ -1,4 +1,6 @@
 #root {
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
 }
@@ -12,7 +14,7 @@
 }
 
 .squareLoader {
-    --c:linear-gradient(lightgray 0 0);
+    --c:linear-gradient(#1976d2 0 0);
     background: 
       var(--c) 0 0,
       var(--c) 0 50%,
