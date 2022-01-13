@@ -10,8 +10,8 @@ export default function Nav(props) {
     const navigate = useNavigate();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box>
+      <AppBar position="fixed">
         <Toolbar>
             <Button variant="text" sx={{ marginRight: "auto", alignItems: "flex-end" }} onClick={() => {
                 navigate("./");
