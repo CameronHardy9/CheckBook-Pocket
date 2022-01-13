@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -10,10 +10,16 @@ import BudgetVisual from './BudgetVisual';
 
 function Home(props) {
     const navigate = useNavigate();
-    const [value, setValue] = useState(0);
     const [setBud, setSetBud] = useState(props.setBud);
     const [currBud, setCurrBud] = useState(props.currBud);
-    const calc = 100 /* (currBud / setBud) * 100 */
+    const [calc, setCalc] = useState(0)
+    /* (currBud / setBud) * 100 */
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCalc(100)
+        }, 250)
+    }, [])
 
     return (
     <>
@@ -22,10 +28,6 @@ function Home(props) {
             <Box sx={{ width: "auto"}}>
                 <BottomNavigation
                     showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                    setValue(newValue);
-                    }}
                 >
                     <BottomNavigationAction label="Budget" icon={<AccountBalanceWalletIcon />} onClick={() => navigate('budget')} />
                     <BottomNavigationAction label="Purchases" icon={<FormatListBulletedIcon />} onClick={() => navigate('purchases')} />
