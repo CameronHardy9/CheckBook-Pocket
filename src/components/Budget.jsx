@@ -9,7 +9,6 @@ import {useState} from 'react';
 
 function Budget(props) {
     const navigate = useNavigate();
-    const [value, setValue] = useState(0);
     const [currBud, setCurrBud] = useState(props.currBud);
     const [setBud, setSetBud] = useState(props.setBud);
 
@@ -21,10 +20,6 @@ function Budget(props) {
                 <Box sx={{ width: "auto"}}>
                     <BottomNavigation
                         showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                        setValue(newValue);
-                        }}
                     >
                         <BottomNavigationAction label="Set Budget" icon={<AttachMoneyIcon />} onClick={() => console.log("Set Budget")} />
                         <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => navigate('../')} />

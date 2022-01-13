@@ -9,17 +9,12 @@ import {useState} from 'react';
 
 function Item() {
     const navigate = useNavigate();
-    const [value, setValue] = useState(0);
 
     return(
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
                 <BottomNavigation
                     showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                    setValue(newValue);
-                    }}
                 >
                     <BottomNavigationAction label="Delete" icon={<DeleteOutlineIcon />} onClick={() => navigate('../')} />
                     <BottomNavigationAction label="Cancel" icon={<CancelIcon />} onClick={() => navigate('../')} />
