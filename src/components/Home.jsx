@@ -13,11 +13,10 @@ function Home(props) {
     const [setBud, setSetBud] = useState(props.setBud);
     const [currBud, setCurrBud] = useState(props.currBud);
     const [calc, setCalc] = useState(0)
-    /* (currBud / setBud) * 100 */
 
     useEffect(() => {
         setTimeout(() => {
-            setCalc(100)
+            setCalc((currBud / setBud) * 100)
         }, 250)
     }, [])
 
