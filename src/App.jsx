@@ -6,13 +6,13 @@ import Purchases from './components/Purchases';
 import Item from './components/Item';
 import Budget from './components/Budget';
 import Home from './components/Home';
-import Nav from './components/Nav';
+import {TopNav, BottomNavHome, BottomNavBudget, BottomNavPurchases} from './components/Nav';
 import calcBudget from './utils/calcBudget';
 
 function App() {
     const params = useParams();
     const [userObject, setUserObject] = useState(undefined);
-    
+    const [path, setPath] = useState(window.location.pathname.split('/').at(-1));
 
     useEffect(() => {
         console.log("effect")
@@ -30,11 +30,15 @@ function App() {
         }
     }
 
+    const updatePath = (path) => {
+        setPath(path);
+    }
+
     return(
         <>
             {!!userObject ? (
                 <>
-                    <Nav budget={calcBudget(userObject.budget, userObject.purchases)}/>
+                    <TopNav budget={calcBudget(userObject.budget, userObject.purchases)}/>
                     <Routes>
                         <Route path="/" element={<Home setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />} />
                         <Route path="budget" element={<Budget setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />}/>
@@ -42,6 +46,15 @@ function App() {
                             <Route path=":itemId" element={<Item />} />
                         </Route>
                     </Routes>
+                    {(() => {
+                        switch(true) {
+                        case path === "budget": 
+                            return <BottomNavBudget />
+                        case path === "purchases": 
+                            return <BottomNavPurchases />
+                        default:
+                            return <BottomNavHome />
+                    }})()}
                 </>
             ):(
                 <div className="loaderContainer">
