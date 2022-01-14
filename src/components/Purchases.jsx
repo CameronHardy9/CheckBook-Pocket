@@ -1,11 +1,6 @@
-import {useNavigate, Outlet} from 'react-router-dom';
-import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useState} from 'react';
 
 function Purchases(props) {
@@ -24,17 +19,6 @@ function Purchases(props) {
                 </Paper>
                 )
             })}
-            <Outlet />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                <Box sx={{ width: "auto"}}>
-                    <BottomNavigation
-                        showLabels
-                    >
-                        <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={() => console.log("Add Purchase")} />
-                        <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => navigate('../')} />
-                    </BottomNavigation>
-                </Box>
-            </Paper>
         </div>
     )
 }
