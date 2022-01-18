@@ -7,10 +7,10 @@ function Budget(props) {
     const [setBud, setSetBud] = useState(props.setBud);
 
     return(
-        <>
+        <div style={{flexGrow: 1}}>
             <h2>${setBud}</h2>
             <h2>${currBud}</h2>
-        </>
+        </div>
     )
 }
 
