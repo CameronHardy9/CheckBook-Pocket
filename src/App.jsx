@@ -38,7 +38,7 @@ function App() {
         <>
             {!!userObject ? (
                 <>
-                    <TopNav budget={calcBudget(userObject.budget, userObject.purchases)}/>
+                    <TopNav budget={calcBudget(userObject.budget, userObject.purchases)} updatePath={updatePath} />
                     <Routes>
                         <Route path="/" element={<Home setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />} />
                         <Route path="budget" element={<Budget setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />}/>
@@ -49,11 +49,11 @@ function App() {
                     {(() => {
                         switch(true) {
                         case path === "budget": 
-                            return <BottomNavBudget />
+                            return <BottomNavBudget updatePath={updatePath} />
                         case path === "purchases": 
-                            return <BottomNavPurchases />
+                            return <BottomNavPurchases updatePath={updatePath} />
                         default:
-                            return <BottomNavHome />
+                            return <BottomNavHome updatePath={updatePath} />
                     }})()}
                 </>
             ):(
