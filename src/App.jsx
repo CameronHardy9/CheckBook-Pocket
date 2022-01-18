@@ -12,7 +12,7 @@ import calcBudget from './utils/calcBudget';
 function App() {
     const params = useParams();
     const [userObject, setUserObject] = useState(undefined);
-    const [path, setPath] = useState(document.URL.split('/').at(-1));
+    const [path, setPath] = useState(document.URL.split('/').reverse()[0]);
 
     useEffect(() => {
         console.log("effect")
