@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 
 export default function BudgetVisual(props) {
   return (
-      <>
         <div className="visualContainer" style={{display: "flex", flexDirection: "column", width: "100%", height: "100%", alignItems: "center", justifyContent: "center"}}>
             <Typography align="center" variant="h2" sx={{fontSize: "30", marginBottom: "50px"}} component="div" color="text.secondary">
                 Remaining Budget
@@ -30,6 +29,5 @@ export default function BudgetVisual(props) {
                 </Box>
             </Box>
         </div>
-      </>
   );
 };

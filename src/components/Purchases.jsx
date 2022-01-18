@@ -1,40 +1,40 @@
-import {useNavigate, Outlet} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {useState} from 'react';
+import Portal from '@mui/material/Portal';
+import {useState, useRef} from 'react';
 
 function Purchases(props) {
     const navigate = useNavigate();
+    const [show, setShow] = useState(false);
+    const container = useRef(null);
+
+    const handleClick = () => {
+        setShow(!show);
+        console.log(container)
+      };
 
     return(
-        <div className='viewWindow' style={{marginTop: "55px"}}>
+        <div style={{overflow: "scroll", flexGrow: 1}}>
             {props.purchases.map((item) => {
                 return(
-                <Paper key={item.uniqid} sx={{width: "auto", height: "auto", padding: "20px", margin: "10px"}} elevation={3}>
-                    <Stack direction="row" spacing={"auto"}>
-                        <span>{item.store}</span>
-                        <span>${item.amount.toFixed(2)}</span>
-                        <span>{item.date}</span>
-                    </Stack>
-                </Paper>
+                    <>
+                        <Paper ref={container} key={item.uniqid} onClick={handleClick} sx={{width: "auto", height: "auto", padding: "20px", margin: "10px"}} elevation={3}>
+                            <Stack direction="row" spacing={"auto"}>
+                                <span>{item.store}</span>
+                                <span>${item.amount.toFixed(2)}</span>
+                                <span>{item.date}</span>
+                            </Stack>
+                        </Paper>
+                        {show ? (
+                            <Portal container={container.current}>
+                                <span>Hello</span>
+                            </Portal>
+                        ) : null}
+                    </>
                 )
             })}
-            <Outlet />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                <Box sx={{ width: "auto"}}>
-                    <BottomNavigation
-                        showLabels
-                    >
-                        <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={() => console.log("Add Purchase")} />
-                        <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => navigate('../')} />
-                    </BottomNavigation>
-                </Box>
-            </Paper>
         </div>
     )
 }
