@@ -12,7 +12,8 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import {useNavigate} from 'react-router-dom';
+import apiHandler from '../utils/apiHandler';
+import {useNavigate, useParams} from 'react-router-dom';
 
 function TopNav(props) {
     const navigate = useNavigate();
@@ -76,12 +77,16 @@ function BottomNavBudget(props) {
 
 function BottomNavPurchases(props) {
     const navigate = useNavigate();
+    const params = useParams();
     
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
                 <BottomNavigation showLabels>
-                    <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={() => console.log("Add Purchase")} />
+                    <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={async () => {
+                                const newDoc = await addPurchase(params.id);
+                                props.updateUserObject(newDoc);
+                            }} />
                     <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => {
                         navigate('./');
                         props.updatePath('');
@@ -91,6 +96,25 @@ function BottomNavPurchases(props) {
         </Paper>
     )
 };
+
+async function addPurchase(userId) {
+    const store = prompt("Store name?");
+    let amount = undefined;
+    while(!amount){
+        amount = Number(prompt("Purchase Amount?"));
+    };
+    const date = new Date().toLocaleDateString("en-US").replaceAll("/","-");;
+
+    const body = {
+        id: userId,
+        store: store,
+        amount: amount,
+        date: date
+    }
+
+    const newDoc = await apiHandler("PUT", body);
+    return newDoc;
+}
 
 export {
     TopNav,
