@@ -1,10 +1,14 @@
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {useParams} from 'react-router-dom';
+import {useState} from 'react';
 import apiHandler from '../utils/apiHandler';
 
 function Purchases(props) {
+    const [toggle, setToggle] = useState(true);
     const params = useParams();
 
     const handleClick = (id) => {
@@ -12,12 +16,21 @@ function Purchases(props) {
         element.hidden = !element.hidden;
       };
 
+    const handleToggle = () => {
+        setToggle(!toggle);
+    }
+
     return(
         <div style={{overflow: "scroll", flexGrow: 1}}>
             {props.purchases.map((item) => {
                 return(
                     <div key={item.uniqid}>
-                        <Paper onClick={() => handleClick(item.uniqid)} sx={{width: "auto", height: "auto", padding: "20px", margin: "10px 10px 0px 10px"}} elevation={3}>
+                        <Paper onClick={() => {
+                                handleClick(item.uniqid);
+                                if(!toggle) {
+                                    handleToggle();
+                                }
+                            }} sx={{width: "auto", height: "auto", padding: "20px", margin: "10px 10px 0px 10px"}} elevation={3}>
                             <Stack direction="row" spacing="auto">
                                 <span>{item.store}</span>
                                 <span>${item.amount.toFixed(2)}</span>
@@ -25,14 +38,22 @@ function Purchases(props) {
                             </Stack>
                         </Paper>
                         <Paper sx={{width: "auto", height: "auto", padding: "10px", margin: "0px 10px 10px 10px", backgroundColor: "transparent"}} elevation={0} square data-key={item.uniqid} hidden>
-                            <Stack direction="row" spacing={20} justifyContent="center">
-                                <DeleteIcon fontSize='large' onClick={async () => {
-                                    const confirm = window.confirm('Delete item?');
-                                    if(confirm) {
+                            <Stack direction="row" spacing={15} justifyContent="center">
+                                {toggle ? (
+                                    <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
+                                ) : (
+                                    <>
+                                        <CheckCircleOutlineIcon fontSize="large" onClick={async () => {
                                         const newDoc = await deleteHandler(params.id, item.uniqid);
                                         props.updateUserObject(newDoc);
-                                    }
-                                }} />
+                                        handleToggle();
+                                    }} />
+                                        <HighlightOffIcon fontSize="large" onClick={() => {
+                                            handleClick(item.uniqid);
+                                            handleToggle();
+                                            }} />
+                                    </>
+                                )}
                             </Stack>
                         </Paper>
                     </div>
