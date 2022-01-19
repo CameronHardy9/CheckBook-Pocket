@@ -42,7 +42,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />} />
                         <Route path="budget" element={<Budget setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />}/>
-                        <Route path="purchases" element={<Purchases purchases={userObject.purchases} />}>
+                        <Route path="purchases" element={<Purchases purchases={userObject.purchases} updateUserObject={updateUserObject} />}>
                             <Route path=":itemId" element={<Item />} />
                         </Route>
                     </Routes>
@@ -51,7 +51,7 @@ function App() {
                         case path === "budget": 
                             return <BottomNavBudget updatePath={updatePath} />
                         case path === "purchases": 
-                            return <BottomNavPurchases updatePath={updatePath} />
+                            return <BottomNavPurchases updatePath={updatePath} updateUserObject={updateUserObject} />
                         default:
                             return <BottomNavHome updatePath={updatePath} />
                     }})()}
@@ -63,6 +63,6 @@ function App() {
             )}
         </>
     );
-}
+};
 
 export default App;
