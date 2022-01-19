@@ -27,8 +27,11 @@ function Purchases(props) {
                         <Paper sx={{width: "auto", height: "auto", padding: "10px", margin: "0px 10px 10px 10px", backgroundColor: "transparent"}} elevation={0} square data-key={item.uniqid} hidden>
                             <Stack direction="row" spacing={20} justifyContent="center">
                                 <DeleteIcon fontSize='large' onClick={async () => {
-                                    const newDoc = await deleteHandler(params.id, item.uniqid);
-                                    props.updateUserObject(newDoc);
+                                    const confirm = window.confirm('Delete item?');
+                                    if(confirm) {
+                                        const newDoc = await deleteHandler(params.id, item.uniqid);
+                                        props.updateUserObject(newDoc);
+                                    }
                                 }} />
                             </Stack>
                         </Paper>
