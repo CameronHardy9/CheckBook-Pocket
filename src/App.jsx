@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import apiHandler from './utils/apiHandler';
 import Purchases from './components/Purchases';
-import Item from './components/Item';
 import Budget from './components/Budget';
 import Home from './components/Home';
 import {TopNav, BottomNavHome, BottomNavBudget, BottomNavPurchases} from './components/Nav';
@@ -42,9 +41,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />} />
                         <Route path="budget" element={<Budget setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />}/>
-                        <Route path="purchases" element={<Purchases purchases={userObject.purchases} updateUserObject={updateUserObject} />}>
-                            <Route path=":itemId" element={<Item />} />
-                        </Route>
+                        <Route path="purchases" element={<Purchases purchases={userObject.purchases} updateUserObject={updateUserObject} />} />
                     </Routes>
                     {(() => {
                         switch(true) {
