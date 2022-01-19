@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import EditIcon from '@mui/icons-material/Edit';
 import {useParams} from 'react-router-dom';
 import {useState} from 'react';
 import apiHandler from '../utils/apiHandler';
@@ -40,7 +41,10 @@ function Purchases(props) {
                         <Paper sx={{width: "auto", height: "auto", padding: "10px", margin: "0px 10px 10px 10px", backgroundColor: "transparent"}} elevation={0} square data-key={item.uniqid} hidden>
                             <Stack direction="row" spacing={15} justifyContent="center">
                                 {toggle ? (
-                                    <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
+                                    <>
+                                        <EditIcon fontSize="large" onClick={() => console.log("edit")}/>
+                                        <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
+                                    </>
                                 ) : (
                                     <>
                                         <CheckCircleOutlineIcon fontSize="large" onClick={async () => {
