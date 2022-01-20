@@ -4,17 +4,30 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EditIcon from '@mui/icons-material/Edit';
+import Collapse from '@mui/material/Collapse';
 import {useParams} from 'react-router-dom';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import apiHandler from '../utils/apiHandler';
 
 function Purchases(props) {
     const [toggle, setToggle] = useState(true);
+    const [show, setShow] = useState({});
     const params = useParams();
 
+    useEffect(() => {
+        console.log("purchase effect");
+        let purObj = {}
+        props.purchases.forEach((item) => {
+            purObj = {...purObj,
+            [item.uniqid]: false
+            }
+        })
+        setShow(purObj);
+    }, [props.purchases]);
+
     const handleClick = (id) => {
-        const element = document.querySelector(`[data-key='${id}']`)
-        element.hidden = !element.hidden;
+        setShow({...show,
+        [id]: !show[id]});
       };
 
     const handleToggle = () => {
@@ -38,28 +51,30 @@ function Purchases(props) {
                                 <span>{item.date}</span>
                             </Stack>
                         </Paper>
-                        <Paper sx={{width: "auto", height: "auto", padding: "10px", margin: "0px 10px 10px 10px", backgroundColor: "transparent"}} elevation={0} square data-key={item.uniqid} hidden>
-                            <Stack direction="row" spacing={15} justifyContent="center">
-                                {toggle ? (
-                                    <>
-                                        <EditIcon fontSize="large" onClick={() => console.log("edit")}/>
-                                        <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
-                                    </>
-                                ) : (
-                                    <>
-                                        <CheckCircleOutlineIcon fontSize="large" onClick={async () => {
-                                        const newDoc = await deleteHandler(params.id, item.uniqid);
-                                        props.updateUserObject(newDoc);
-                                        handleToggle();
-                                    }} />
-                                        <HighlightOffIcon fontSize="large" onClick={() => {
-                                            handleClick(item.uniqid);
+                        <Collapse in={show[item.uniqid]} >
+                            <Paper sx={{width: "auto", height: "auto", padding: "10px", margin: "0px 10px 10px 10px", backgroundColor: "transparent"}} elevation={0} square data-key={item.uniqid}>
+                                <Stack direction="row" spacing={15} justifyContent="center">
+                                    {toggle ? (
+                                        <>
+                                            <EditIcon fontSize="large" onClick={() => console.log("edit")}/>
+                                            <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <CheckCircleOutlineIcon fontSize="large" onClick={async () => {
+                                            const newDoc = await deleteHandler(params.id, item.uniqid);
+                                            props.updateUserObject(newDoc);
                                             handleToggle();
-                                            }} />
-                                    </>
-                                )}
-                            </Stack>
-                        </Paper>
+                                        }} />
+                                            <HighlightOffIcon fontSize="large" onClick={() => {
+                                                handleClick(item.uniqid);
+                                                handleToggle();
+                                                }} />
+                                        </>
+                                    )}
+                                </Stack>
+                            </Paper>
+                        </Collapse>
                     </div>
                 )
             })}
