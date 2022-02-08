@@ -22,14 +22,14 @@ function TopNav(props) {
     <Box>
       <AppBar position="static">
         <Toolbar>
-            <Button variant="text" sx={{ marginRight: "auto", alignItems: "flex-end" }} onClick={() => {
+            <Button variant="text" sx={{ marginRight: "auto", alignItems: "center" }} onClick={() => {
                 navigate("./");
                 props.updatePath('');
             }}>
-                <span style={{ fontSize: "large", color: "black", textAlign: "bottom" }}>CheckBook</span>
-                <span style={{ fontSize: "x-small", color: "white", textAlign: "bottom" }}>pocket</span>
+                <span style={{ fontSize: "large", fontWeight: "400", color: "black" }}>CheckBook</span>
+                <span style={{ fontSize: "x-small", fontWeight: "400", color: "white", margin: "5px 0 0 2px"}}>pocket</span>
             </Button>
-            <Typography variant="h6" component="div" sx={{ fontSize: "large" }}>${props.budget}</Typography>
+            <Typography variant="h6" component="div" sx={{ fontSize: "large", color: "white" }}>${props.budget}</Typography>
         </Toolbar>
       </AppBar>
     </Box>
