@@ -26,8 +26,19 @@ function Purchases(props) {
     }, [props.purchases]);
 
     const handleClick = (id) => {
-        setShow({...show,
-        [id]: !show[id]});
+        for (const item in show) {
+            if (item !== id){
+                setShow((curr) => {
+                    return {...curr,
+                    [item]: false}
+                });
+            } else if (item === id) {
+                setShow((curr) => {
+                    return {...curr,
+                    [item]: !curr[item]}
+                });
+            }
+        }
       };
 
     const handleToggle = () => {
