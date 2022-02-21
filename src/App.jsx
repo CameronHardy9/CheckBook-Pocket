@@ -14,7 +14,6 @@ function App() {
     const [path, setPath] = useState(document.URL.split('/').reverse()[0]);
 
     useEffect(() => {
-        console.log("effect")
         if (params.id){
             (async () => {
                 const response = await apiHandler("GET", {id: params.id});
@@ -46,7 +45,7 @@ function App() {
                     {(() => {
                         switch(true) {
                         case path === "budget": 
-                            return <BottomNavBudget updatePath={updatePath} />
+                            return <BottomNavBudget updatePath={updatePath} updateUserObject={updateUserObject} />
                         case path === "purchases": 
                             return <BottomNavPurchases updatePath={updatePath} updateUserObject={updateUserObject} />
                         default:
