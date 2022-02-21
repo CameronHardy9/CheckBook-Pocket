@@ -85,7 +85,9 @@ function BottomNavPurchases(props) {
                 <BottomNavigation showLabels>
                     <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={async () => {
                                 const newDoc = await addPurchase(params.id);
-                                props.updateUserObject(newDoc);
+                                if(newDoc) {
+                                    props.updateUserObject(newDoc);
+                                }
                             }} />
                     <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => {
                         navigate('./');
@@ -98,15 +100,22 @@ function BottomNavPurchases(props) {
 };
 
 async function addPurchase(userId) {
-    const store = prompt("Store name?");
-    let amount = undefined;
-    while(!amount){
-        if(amount === null){
-            break;
+    let store = undefined;
+    while(!store) {
+        if(store === null){
+            return null;
         };
-
+        store = prompt("Store name?");
+    }
+    
+    let amount = undefined;
+    while(!amount || amount === 0){
+        if(amount === null){
+            return null;
+        };
         amount = Number(prompt("Purchase Amount?"));
     };
+
     const date = new Date().toLocaleDateString("en-US").replaceAll("/","-");;
 
     const body = {
