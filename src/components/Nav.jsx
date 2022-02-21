@@ -59,12 +59,18 @@ function BottomNavHome(props) {
 
 function BottomNavBudget(props) {
     const navigate = useNavigate();
+    const params = useParams();
 
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
                 <BottomNavigation showLabels>
-                    <BottomNavigationAction label="Set Budget" icon={<AttachMoneyIcon />} onClick={() => console.log("Set Budget")} />
+                    <BottomNavigationAction label="Set Budget" icon={<AttachMoneyIcon />} onClick={async () => {
+                                const newDoc = await updateBudget(params.id);
+                                if(newDoc) {
+                                    props.updateUserObject(newDoc);
+                                }
+                            }} />
                     <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => {
                         navigate('./');
                         props.updatePath('');
@@ -126,6 +132,23 @@ async function addPurchase(userId) {
     }
 
     const newDoc = await apiHandler("PUT", body);
+    return newDoc;
+};
+
+async function updateBudget(userId) {
+    let budget = undefined;
+    while(!budget || budget === 0){
+        if(budget === null){
+            return null;
+        };
+        budget = Number(prompt("New budget?"));
+    };
+
+    const body = {
+        id: userId,
+        budget: budget
+    }
+    const newDoc = await apiHandler("PUT", body)
     return newDoc;
 };
 
