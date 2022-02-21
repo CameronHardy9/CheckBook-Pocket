@@ -15,7 +15,6 @@ function Purchases(props) {
     const params = useParams();
 
     useEffect(() => {
-        console.log("purchase effect");
         let purObj = {}
         props.purchases.forEach((item) => {
             purObj = {...purObj,
