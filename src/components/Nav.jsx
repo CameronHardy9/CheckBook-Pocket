@@ -101,6 +101,10 @@ async function addPurchase(userId) {
     const store = prompt("Store name?");
     let amount = undefined;
     while(!amount){
+        if(amount === null){
+            break;
+        };
+
         amount = Number(prompt("Purchase Amount?"));
     };
     const date = new Date().toLocaleDateString("en-US").replaceAll("/","-");;
@@ -114,7 +118,7 @@ async function addPurchase(userId) {
 
     const newDoc = await apiHandler("PUT", body);
     return newDoc;
-}
+};
 
 export {
     TopNav,
