@@ -21,15 +21,15 @@ function TopNav(props) {
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{height: '70px'}}>
             <Button variant="text" sx={{ marginRight: "auto", alignItems: "center" }} onClick={() => {
                 navigate("./");
                 props.updatePath('');
             }}>
-                <span style={{ fontSize: "large", fontWeight: "400", color: "black" }}>CheckBook</span>
-                <span style={{ fontSize: "x-small", fontWeight: "400", color: "white", margin: "5px 0 0 2px"}}>pocket</span>
+                <span style={{ fontSize: "22px", fontWeight: "400", color: "black" }}>CheckBook</span>
+                <span style={{ fontSize: "10px", fontWeight: "400", color: "white", margin: "8px 0 0 2px"}}>pocket</span>
             </Button>
-            <Typography variant="h6" component="div" sx={{ fontSize: "large", color: "white" }}>${props.budget}</Typography>
+            <Typography variant="h6" component="div" sx={{ fontSize: "22px", fontWeight: '200', color: "white" }}>${props.budget}</Typography>
         </Toolbar>
       </AppBar>
     </Box>
@@ -42,7 +42,7 @@ function BottomNavHome(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels>
+                <BottomNavigation showLabels sx={{height: '80px'}}>
                     <BottomNavigationAction label="Budget" icon={<AccountBalanceWalletIcon />} onClick={() => {
                         navigate('budget');
                         props.updatePath('budget');
@@ -64,7 +64,7 @@ function BottomNavBudget(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels>
+                <BottomNavigation showLabels sx={{height: '80px'}}>
                     <BottomNavigationAction label="Set Budget" icon={<AttachMoneyIcon />} onClick={async () => {
                                 const newDoc = await updateBudget(params.id);
                                 if(newDoc) {
@@ -88,7 +88,7 @@ function BottomNavPurchases(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels>
+                <BottomNavigation showLabels sx={{height: '80px'}}>
                     <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={async () => {
                                 const newDoc = await addPurchase(params.id);
                                 if(newDoc) {
