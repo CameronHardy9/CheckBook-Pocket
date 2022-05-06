@@ -1,6 +1,8 @@
 async function apiHandler (method, body) {
     let string = "";
 
+    // TODO: Add route for generating new user profile
+
     if(method === "PUT" && body.store && body.amount && body.date) {
         string = `add/${body.store}/${body.amount}/${body.date}`;
     }
