@@ -4,6 +4,8 @@ import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../utils/firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
 const app = initializeApp(firebaseConfig);
 
@@ -47,7 +49,7 @@ function Login() {
         <>
             {newOrExisting === undefined && (
                 <div style={styles.main}>
-                    <h1>Checkbook Pocket</h1>
+                    <h1 style={{padding: "20px"}}>Checkbook Pocket</h1>
                     <div style={styles.buttonGroup}>
                         <Button sx={styles.button} onClick={() => {
                             setTimeout(() => {
@@ -65,18 +67,35 @@ function Login() {
             {
                 newOrExisting && (
                     <>
-                        <h1>{newOrExisting} User</h1>
-                        <span>Email</span>
-                        <input type="email" onBlur={(i) => {
-                            setLoginData({...loginData,
-                            email: i.target.value})
-                        }}/>
-                        <span>Password</span>
-                        <input type="password" onBlur={(i) => {
-                            setLoginData({...loginData,
-                            password: i.target.value})
-                        }}/>
-                        <span style={{color: 'red'}}>{errorMessage}</span>
+                        <h1 style={{padding: '10px'}}>{newOrExisting} User</h1>
+                        <Stack direction='column' spacing={2}>
+                            <TextField
+                                required
+                                error={errorMessage}
+                                id="email"
+                                label="Email"
+                                type="email"
+                                defaultValue=""
+                                helperText={""}
+                                onChange={(e) => {
+                                    setLoginData({...loginData,
+                                    email: e.target.value})
+                                }}
+                            />
+                            <TextField
+                                required
+                                error={errorMessage}
+                                id="password"
+                                label="Password"
+                                type="password"
+                                defaultValue=""
+                                helperText={errorMessage || " "}
+                                onChange={(e) => {
+                                    setLoginData({...loginData,
+                                    password: e.target.value})
+                                }}
+                            />
+                        </Stack>
                         <button onClick={() => {
                             if(newOrExisting === "New") {
                                 createUserWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
