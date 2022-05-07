@@ -47,6 +47,8 @@ function Login() {
 
     return (
         <>
+            {/* Initial New or Existing User Selection */}
+
             {newOrExisting === undefined && (
                 <div style={styles.main}>
                     <h1 style={{padding: "20px"}}>Checkbook Pocket</h1>
@@ -64,6 +66,9 @@ function Login() {
                     </div>
                 </div>
             )}
+
+            {/* User Login or Account Creation */}
+
             {
                 newOrExisting && (
                     <>
