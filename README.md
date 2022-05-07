@@ -6,7 +6,7 @@
 - User login (coming soon)
 - Remaining budget display in top nav
 - "Remaining Budget" home screen visual as a percentage 
-- Budget section for viewing current budget and remaining balance + setting new budget (coming soon)
+- Budget section for viewing current budget and remaining balance + setting new budget
 - Purchase tracking for viewing, adding, editing (coming soon), or deleting purchases
 - Live budget update as purchases are added
 - UI built utilizing Material-UI components
