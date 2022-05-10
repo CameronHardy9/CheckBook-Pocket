@@ -14,6 +14,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import apiHandler from '../utils/apiHandler';
 import {useNavigate, useParams} from 'react-router-dom';
+import TempDrawer from './TempDrawer';
 
 function TopNav(props) {
     const navigate = useNavigate();
@@ -30,6 +31,7 @@ function TopNav(props) {
                 <span style={{ fontSize: "10px", fontWeight: "400", color: "white", margin: "8px 0 0 2px"}}>pocket</span>
             </Button>
             <Typography variant="h6" component="div" sx={{ fontSize: "22px", fontWeight: '200', color: "white" }}>${props.budget}</Typography>
+            <TempDrawer/>
         </Toolbar>
       </AppBar>
     </Box>
