@@ -6,6 +6,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import apiHandler from '../utils/apiHandler';
 
 const app = initializeApp(firebaseConfig);
 
@@ -104,8 +105,10 @@ function Login() {
                         <button onClick={() => {
                             if(newOrExisting === "New") {
                                 createUserWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
-                                .then((userCredential) => {
+                                .then(async (userCredential) => {
                                     // Signed in 
+                                    
+                                    await apiHandler('POST', {id: userCredential.user.uid});
                                     signIn(userCredential.user);
                                 })
                                 .catch((error) => {
