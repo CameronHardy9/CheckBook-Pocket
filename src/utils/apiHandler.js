@@ -19,8 +19,7 @@ async function apiHandler (method, body) {
     }
 
     try {
-        // Live endpoint - https://family-budget-app-server.herokuapp.com/api/
-        let response = await fetch(`http://localhost:8080/api/${body.id}/${string}`, {
+        let response = await fetch(`https://family-budget-app-server.herokuapp.com/api/${body.id}/${string}`, {
             mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
