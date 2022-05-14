@@ -3,7 +3,7 @@
 ### Budget app for tracking personal or family purchases. 
 
 ## Features
-- User login (coming soon)
+- User login/log out
 - Remaining budget display in top nav
 - "Remaining Budget" home screen visual as a percentage 
 - Budget section for viewing current budget and remaining balance + setting new budget
