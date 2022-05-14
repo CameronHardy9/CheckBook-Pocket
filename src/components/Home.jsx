@@ -5,9 +5,11 @@ function Home(props) {
     const [calc, setCalc] = useState(0)
 
     useEffect(() => {
-        setTimeout(() => {
-            setCalc((props.currBud / props.setBud) * 100)
-        }, 250)
+        if (props.currBud > 0) {
+            setTimeout(() => {
+                setCalc((props.currBud / props.setBud) * 100)
+            }, 250)
+        }
     }, [props.currBud, props.setBud])
 
     return (
