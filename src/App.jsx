@@ -47,7 +47,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />} />
                         <Route path="budget" element={<Budget setBud={userObject.budget} currBud={calcBudget(userObject.budget, userObject.purchases)} />}/>
-                        <Route path="purchases" element={<Purchases purchases={userObject.purchases} updateUserObject={updateUserObject} />} />
+                        <Route path="purchases" element={<Purchases userObject={userObject} updateUserObject={updateUserObject} />} />
                     </Routes>
                     {(() => {
                         switch(true) {
