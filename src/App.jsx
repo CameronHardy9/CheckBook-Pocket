@@ -27,7 +27,7 @@ function App() {
                 setUserObject(response);
             })()
         }
-    },[params.id])
+    },[params.id, navigate])
 
     const updateUserObject = (data) => {
         if(data.budget && data.purchases) {
