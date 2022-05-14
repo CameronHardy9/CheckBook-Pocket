@@ -5,6 +5,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import EditIcon from '@mui/icons-material/Edit';
 import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import apiHandler from '../utils/apiHandler';
@@ -16,13 +17,13 @@ function Purchases(props) {
 
     useEffect(() => {
         let purObj = {}
-        props.purchases.forEach((item) => {
+        props.userObject.purchases.forEach((item) => {
             purObj = {...purObj,
             [item.uniqid]: false
             }
         })
         setShow(purObj);
-    }, [props.purchases]);
+    }, [props.userObject.purchases]);
 
     const handleClick = (id) => {
         for (const item in show) {
@@ -45,8 +46,8 @@ function Purchases(props) {
     }
 
     return(
-        <div style={{overflow: "scroll", flexGrow: 1}}>
-            {props.purchases.map((item) => {
+        <div style={{overflow: "scroll", flexGrow: 1, display: 'flex', flexDirection: 'column'}}>
+            {props.userObject.purchases.map((item) => {
                 return(
                     <div key={item.uniqid}>
                         <Paper onClick={() => {
@@ -88,6 +89,13 @@ function Purchases(props) {
                     </div>
                 )
             })}
+            <Button sx={{padding: '30px'}} onClick={async () => {
+                const confirmation = window.confirm('Are you sure you want to delete all purchases?');
+                if (confirmation) {
+                    const newDoc = await deleteAllHandler(props.userObject, confirmation);
+                    props.updateUserObject(newDoc);
+                }
+            }}>Delete All</Button>
         </div>
     )
 };
@@ -96,5 +104,14 @@ async function deleteHandler(userId, purchaseId) {
     const newDoc = await apiHandler("DELETE", {id: userId, uniqid: purchaseId});
     return newDoc;
 };
+
+async function deleteAllHandler(userObject, confirmation) {
+    await apiHandler("DELETE", {id: userObject._id, confirmation: confirmation});
+    const newDoc = {
+        ...userObject,
+        purchases: []
+    }
+    return newDoc;
+}
 
 export default Purchases;
