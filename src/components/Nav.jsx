@@ -44,12 +44,12 @@ function BottomNavHome(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels sx={{height: '80px'}}>
-                    <BottomNavigationAction label="Budget" icon={<AccountBalanceWalletIcon />} onClick={() => {
+                <BottomNavigation showLabels sx={styles.bottomNav}>
+                    <BottomNavigationAction label="Budget" sx={styles.bottomNavIcons} icon={<AccountBalanceWalletIcon />} onClick={() => {
                         navigate('budget');
                         props.updatePath('budget');
                         }} />
-                    <BottomNavigationAction label="Purchases" icon={<FormatListBulletedIcon />} onClick={() => {
+                    <BottomNavigationAction label="Purchases" sx={styles.bottomNavIcons} icon={<FormatListBulletedIcon />} onClick={() => {
                         navigate('purchases');
                         props.updatePath('purchases');
                         }} />
@@ -66,14 +66,14 @@ function BottomNavBudget(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels sx={{height: '80px'}}>
-                    <BottomNavigationAction label="Set Budget" icon={<AttachMoneyIcon />} onClick={async () => {
+                <BottomNavigation showLabels sx={styles.bottomNav}>
+                    <BottomNavigationAction label="Set Budget" sx={styles.bottomNavIcons} icon={<AttachMoneyIcon />} onClick={async () => {
                                 const newDoc = await updateBudget(params.id);
                                 if(newDoc) {
                                     props.updateUserObject(newDoc);
                                 }
                             }} />
-                    <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => {
+                    <BottomNavigationAction label="Back" sx={styles.bottomNavIcons} icon={<ArrowBackIcon />} onClick={() => {
                         navigate('./');
                         props.updatePath('');
                         }} />
@@ -90,14 +90,14 @@ function BottomNavPurchases(props) {
     return(
         <Paper sx={{ position: 'static', bottom: 0, left: 0, right: 0 }} elevation={3}>
             <Box sx={{ width: "auto"}}>
-                <BottomNavigation showLabels sx={{height: '80px'}}>
-                    <BottomNavigationAction label="Add Purchase" icon={<PlaylistAddIcon />} onClick={async () => {
+                <BottomNavigation showLabels sx={styles.bottomNav}>
+                    <BottomNavigationAction label="Add Purchase" sx={styles.bottomNavIcons} icon={<PlaylistAddIcon />} onClick={async () => {
                                 const newDoc = await addPurchase(params.id);
                                 if(newDoc) {
                                     props.updateUserObject(newDoc);
                                 }
                             }} />
-                    <BottomNavigationAction label="Back" icon={<ArrowBackIcon />} onClick={() => {
+                    <BottomNavigationAction label="Back" sx={styles.bottomNavIcons} icon={<ArrowBackIcon />} onClick={() => {
                         navigate('./');
                         props.updatePath('');
                         }} />
@@ -153,6 +153,17 @@ async function updateBudget(userId) {
     const newDoc = await apiHandler("PUT", body)
     return newDoc;
 };
+
+const styles = {
+    bottomNav: {
+        height: '80px', 
+        alignItems: 'flex-start',
+        justifyContent: 'space-around'
+    },
+    bottomNavIcons: {
+        paddingTop: '10px'
+    }
+}
 
 export {
     TopNav,
