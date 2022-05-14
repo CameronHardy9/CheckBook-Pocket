@@ -14,8 +14,12 @@ async function apiHandler (method, body) {
         string = `budget/${body.budget}`;
     }
 
-    if(method === "DELETE") {
+    if(method === "DELETE" && body.uniqid) {
         string = `delete/${body.uniqid}`;
+    }
+
+    if(method === "DELETE" && body.confirmation === true) {
+        string = 'deleteAll';
     }
 
     try {
