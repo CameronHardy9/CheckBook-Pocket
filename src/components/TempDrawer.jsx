@@ -35,11 +35,13 @@ export default function TempDrawer() {
                     role="presentation"
                     onClick={() => toggleDrawer()}
                     sx={{
-                        width: "50vw",
-                        maxWidth: "300px"
+                        width: "80vw",
+                        maxWidth: "300px",
+                        padding: '10px'
                     }}
                 >
-                    <span>{email}</span>
+                    <h2 style={{fontSize: '18px'}}>Logged in as:</h2>
+                    <span style={{fontSize: '14px'}}>{email}</span>
                     <Divider />
                     <Button onClick={() => {
                         window.localStorage.removeItem('checkbook_pocket');
