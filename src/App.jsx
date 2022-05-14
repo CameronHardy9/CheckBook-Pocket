@@ -1,4 +1,4 @@
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import apiHandler from './utils/apiHandler';
@@ -10,10 +10,17 @@ import calcBudget from './utils/calcBudget';
 
 function App() {
     const params = useParams();
+    const navigate = useNavigate();
     const [userObject, setUserObject] = useState(undefined);
     const [path, setPath] = useState(document.URL.split('/').reverse()[0]);
 
     useEffect(() => {
+        const cache = JSON.parse(window.localStorage.getItem('checkbook_pocket'));
+        if (cache?.uid === undefined) {
+            navigate('/');
+            return;
+        }
+
         if (params.id){
             (async () => {
                 const response = await apiHandler("GET", {id: params.id});
