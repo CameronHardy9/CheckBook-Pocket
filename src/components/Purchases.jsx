@@ -89,6 +89,7 @@ function Purchases(props) {
                     </div>
                 )
             })}
+            {props.userObject.purchases[0] &&
             <Button sx={{padding: '30px'}} onClick={async () => {
                 const confirmation = window.confirm('Are you sure you want to delete all purchases?');
                 if (confirmation) {
@@ -96,6 +97,7 @@ function Purchases(props) {
                     props.updateUserObject(newDoc);
                 }
             }}>Delete All</Button>
+            }
         </div>
     )
 };
