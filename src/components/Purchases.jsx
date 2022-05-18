@@ -89,14 +89,26 @@ function Purchases(props) {
                     </div>
                 )
             })}
-            {props.userObject.purchases[0] &&
-            <Button sx={{padding: '30px'}} onClick={async () => {
-                const confirmation = window.confirm('Are you sure you want to delete all purchases?');
-                if (confirmation) {
-                    const newDoc = await deleteAllHandler(props.userObject, confirmation);
-                    props.updateUserObject(newDoc);
-                }
-            }}>Delete All</Button>
+            {props.userObject.purchases[0] ? (
+                <Button sx={{padding: '30px'}} onClick={async () => {
+                    const confirmation = window.confirm('Are you sure you want to delete all purchases?');
+                    if (confirmation) {
+                        const newDoc = await deleteAllHandler(props.userObject, confirmation);
+                        props.updateUserObject(newDoc);
+                    }
+                }}>Delete All</Button>
+            ) : (
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    paddingTop: '30px'                    
+                }}>
+                    <h2 style={{
+                        color: 'lightgrey',
+                        fontSize: '20px'
+                    }}>Add new purchases here</h2>
+                </div>
+            )
             }
         </div>
     )
