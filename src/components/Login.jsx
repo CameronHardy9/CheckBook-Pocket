@@ -81,7 +81,7 @@ function Login() {
                                 id="email"
                                 label="Email"
                                 type="email"
-                                defaultValue=""
+                                defaultValue={loginData.email}
                                 helperText={""}
                                 onChange={(e) => {
                                     setLoginData({...loginData,
@@ -94,7 +94,7 @@ function Login() {
                                 id="password"
                                 label="Password"
                                 type="password"
-                                defaultValue=""
+                                defaultValue={loginData.password}
                                 helperText={errorMessage || " "}
                                 onChange={(e) => {
                                     setLoginData({...loginData,
