@@ -47,91 +47,58 @@ function Login() {
     }
 
     return (
-        <>
-            {/* Initial New or Existing User Selection */}
-
-            {newOrExisting === undefined && (
-                <div style={styles.main}>
-                    <h1 style={{padding: "20px"}}>Checkbook Pocket</h1>
-                    <div style={styles.buttonGroup}>
-                        <Button sx={styles.button} onClick={() => {
-                            setTimeout(() => {
-                                setNewOrExisting("New");
-                            }, 500)
-                        }}>New User</Button>
-                        <Button sx={styles.button} onClick={() => {
-                            setTimeout(() => {
-                                setNewOrExisting("Existing");
-                            }, 500)
-                        }}>Existing User</Button>
-                    </div>
-                </div>
-            )}
-
-            {/* User Login or Account Creation */}
-
-            {
-                newOrExisting && (
-                    <>
-                        <h1 style={{padding: '10px'}}>{newOrExisting} User</h1>
-                        <Stack direction='column' spacing={2}>
-                            <TextField
-                                required
-                                error={errorMessage}
-                                id="email"
-                                label="Email"
-                                type="email"
-                                defaultValue={loginData.email}
-                                helperText={""}
-                                onChange={(e) => {
-                                    setLoginData({...loginData,
-                                    email: e.target.value})
-                                }}
-                            />
-                            <TextField
-                                required
-                                error={errorMessage}
-                                id="password"
-                                label="Password"
-                                type="password"
-                                defaultValue={loginData.password}
-                                helperText={errorMessage || " "}
-                                onChange={(e) => {
-                                    setLoginData({...loginData,
-                                    password: e.target.value})
-                                }}
-                            />
-                        </Stack>
-                        <Button onClick={() => {
-                            if(newOrExisting === "New") {
-                                createUserWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
-                                .then(async (userCredential) => {
-                                    // Signed in 
-                                    
-                                    await apiHandler('POST', {id: userCredential.user.uid});
-                                    signIn(userCredential.user);
-                                })
-                                .catch((error) => {
-                                    handleError(error.code.split('/')[1].replaceAll('-', ' '));
-                                });
-                            } else if(newOrExisting === "Existing") {
-                                signInWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
-                                    .then((userCredential) => {
-                                        // Signed in 
-                                        signIn(userCredential.user);
-                                    })
-                                    .catch((error) => {
-                                        handleError(error.code.split('/')[1].replaceAll('-',' '));
-                                    });
-                            }
-                        }}>Submit</Button>
-                        <Button onClick={() => {
-                            setNewOrExisting(undefined);
-                        }}>Back</Button>
-                    </>
-                )
-            }    
-        </>
+        <div style={styles.main}>
+            <h1 style={{padding: "20px"}}>Checkbook Pocket</h1>
+            <Stack direction='column' spacing={2}>
+                    <TextField
+                        required
+                        error={errorMessage}
+                        id="email"
+                        label="Email"
+                        type="email"
+                        defaultValue=""
+                        helperText={""}
+                        onChange={(e) => {
+                            setLoginData({...loginData,
+                            email: e.target.value})
+                        }}
+                    />
+                    <TextField
+                        required
+                        error={errorMessage}
+                        id="password"
+                        label="Password"
+                        type="password"
+                        defaultValue=""
+                        helperText={errorMessage || " "}
+                        onChange={(e) => {
+                            setLoginData({...loginData,
+                            password: e.target.value})
+                        }}
+                    />
+                </Stack>
+                <Button onClick={() => {
+                    signInWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        signIn(userCredential.user);
+                    })
+                    .catch((error) => {
+                        handleError(error.code.split('/')[1].replaceAll('-',' '));
+                    });
+                }}>Sign In</Button>
+                <Button onClick={() => {
+                        createUserWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
+                        .then(async (userCredential) => {
+                            // Signed in & add user to DB
+                            await apiHandler('POST', {id: userCredential.user.uid});
+                            signIn(userCredential.user);
+                        })
+                        .catch((error) => {
+                            handleError(error.code.split('/')[1].replaceAll('-', ' '));
+                        });
+                    }}>Create Account</Button>
+        </div>
     )
 }
 
