@@ -102,7 +102,7 @@ function Login() {
                                 }}
                             />
                         </Stack>
-                        <button onClick={() => {
+                        <Button onClick={() => {
                             if(newOrExisting === "New") {
                                 createUserWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
                                 .then(async (userCredential) => {
@@ -124,10 +124,10 @@ function Login() {
                                         handleError(error.code.split('/')[1].replaceAll('-',' '));
                                     });
                             }
-                        }}>Submit</button>
-                        <button onClick={() => {
+                        }}>Submit</Button>
+                        <Button onClick={() => {
                             setNewOrExisting(undefined);
-                        }}>Back</button>
+                        }}>Back</Button>
                     </>
                 )
             }    
