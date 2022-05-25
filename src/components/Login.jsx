@@ -19,8 +19,6 @@ function Login() {
         password: undefined
     })
 
-    const [newOrExisting, setNewOrExisting] = useState(undefined);
-
     const [errorMessage, setErrorMessage] = useState(undefined);
 
     useEffect(() => {
