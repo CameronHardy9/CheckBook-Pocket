@@ -47,7 +47,7 @@ function Login() {
     return (
         <div style={styles.main}>
             <h1 style={{padding: "20px"}}>Checkbook Pocket</h1>
-            <Stack direction='column' spacing={2}>
+            <Stack direction='column' sx={{flexGrow: 1, marginTop: '15vh'}} spacing={2}>
                     <TextField
                         required
                         error={errorMessage}
@@ -74,7 +74,6 @@ function Login() {
                             password: e.target.value})
                         }}
                     />
-                </Stack>
                 <Button onClick={() => {
                     signInWithEmailAndPassword(loginData.auth, loginData.email, loginData.password)
                     .then((userCredential) => {
@@ -96,6 +95,7 @@ function Login() {
                             handleError(error.code.split('/')[1].replaceAll('-', ' '));
                         });
                     }}>Create Account</Button>
+            </Stack>
         </div>
     )
 }
@@ -107,13 +107,6 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    },
-    buttonGroup: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    button: {
-        width: '100vw',
-        padding: '20px 0px'
+        flexGrow: 1
     }
 }
