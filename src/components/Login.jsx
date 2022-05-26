@@ -56,6 +56,7 @@ function Login() {
                         type="email"
                         defaultValue=""
                         helperText={""}
+                        sx={styles.field}
                         onChange={(e) => {
                             setLoginData({...loginData,
                             email: e.target.value})
@@ -69,6 +70,7 @@ function Login() {
                         type="password"
                         defaultValue=""
                         helperText={errorMessage || " "}
+                        sx={styles.field}
                         onChange={(e) => {
                             setLoginData({...loginData,
                             password: e.target.value})
@@ -108,5 +110,9 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         flexGrow: 1
+    },
+    field: {
+        width: '70vw',
+        maxWidth: '300px' 
     }
 }
