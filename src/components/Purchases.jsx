@@ -67,7 +67,9 @@ function Purchases(props) {
                                 <Stack direction="row" spacing={15} justifyContent="center">
                                     {toggle ? (
                                         <>
-                                            <EditIcon fontSize="large" onClick={() => console.log("edit")}/>
+                                            <EditIcon fontSize="large" onClick={() => {
+                                                //TODO: Add edit function linked to new API endpoint for purchase list updates
+                                            }}/>
                                             <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
                                         </>
                                     ) : (
