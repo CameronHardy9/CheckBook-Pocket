@@ -1,9 +1,12 @@
 async function apiHandler (method, body) {
     let string = "";
 
-    // TODO: Add route for generating new user profile
     if(method === "POST" && body.id) {
         string = "";
+    }
+
+    if(method === "PUT" && body.body) {
+        string = "purchases"
     }
 
     if(method === "PUT" && body.store && body.amount && body.date) {
@@ -28,7 +31,8 @@ async function apiHandler (method, body) {
             headers: {
                 "Content-Type": "application/json"
             },
-            method: method
+            method: method,
+            body: body?.body
         })
         let data = await response.json();
         return data;
