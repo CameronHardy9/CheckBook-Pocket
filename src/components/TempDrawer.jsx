@@ -33,7 +33,6 @@ export default function TempDrawer() {
             >
                 <Box
                     role="presentation"
-                    onClick={() => toggleDrawer()}
                     sx={{
                         width: "80vw",
                         maxWidth: "300px",
