@@ -6,13 +6,43 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import apiHandler from "../utils/apiHandler";
 
-export default function PurchaseEditDrawer() {
+export default function PurchaseEditDrawer(props) {
     const [open, setOpen] = useState(false);
+    const [fieldData, setFieldData] = useState({
+        store: undefined,
+        amount: undefined
+    })
 
     function toggleDrawer(){
         setOpen(!open);
     };
+
+    async function updatePurchaseObject() {
+        const updatedPurchaseObject = props.userObject.purchases.map((item) => {
+            if(item.uniqid === props.purchaseId) {
+                const newItem = {
+                    ...item,
+                    store: fieldData.store,
+                    amount: fieldData.amount
+                }
+                return newItem;
+            }
+            return item;
+        })
+
+        //TODO: FIX BUG
+        // await apiHandler('PUT', {
+        //     id: props.userObject.id, 
+        //     body: JSON.stringify({purchases: updatedPurchaseObject})
+        //     })
+
+        props.updateUserObject({
+            ...props.userObject,
+            purchases: updatedPurchaseObject
+        });
+    }
     
     return (
         <>
@@ -44,7 +74,10 @@ export default function PurchaseEditDrawer() {
                             helperText={""}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
-                                //TODO: Add change logic
+                                setFieldData({
+                                    ...fieldData,
+                                    store: e.target.value
+                                })
                             }}
                         />
                         <TextField
@@ -57,11 +90,15 @@ export default function PurchaseEditDrawer() {
                             helperText={""}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
-                                //TODO: Add change logic
+                                setFieldData({
+                                    ...fieldData,
+                                    amount: Number(e.target.value)
+                                })
                             }}
                         />
                         <Button onClick={() => {
-                            //TODO: Add functionality for updating user object
+                            updatePurchaseObject();
+                            toggleDrawer();
                         }}>Update</Button>
                     </Stack>
                 </Box>
