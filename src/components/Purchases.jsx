@@ -69,7 +69,7 @@ function Purchases(props) {
                                     {toggle ? (
                                         <>
                                             {/* TODO: Add props to PurchaseEditDrawer for updating userObject */}
-                                            <PurchaseEditDrawer />
+                                            <PurchaseEditDrawer purchaseId={item.uniqid} userObject={props.userObject} updateUserObject={props.updateUserObject}/>
                                             {/* <EditIcon fontSize="large" onClick={() => {
                                                 TODO: Add edit function linked to new API endpoint for purchase list updates
                                                 
