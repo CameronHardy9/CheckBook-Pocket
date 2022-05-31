@@ -3,12 +3,13 @@ import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import apiHandler from '../utils/apiHandler';
+import PurchaseEditDrawer from './PurchaseEditDrawer';
 
 function Purchases(props) {
     const [toggle, setToggle] = useState(true);
@@ -67,22 +68,34 @@ function Purchases(props) {
                                 <Stack direction="row" spacing={15} justifyContent="center">
                                     {toggle ? (
                                         <>
-                                            <EditIcon fontSize="large" onClick={() => {
-                                                //TODO: Add edit function linked to new API endpoint for purchase list updates
-                                            }}/>
-                                            <DeleteIcon fontSize='large' onClick={async () => handleToggle()} />
+                                            {/* TODO: Add props to PurchaseEditDrawer for updating userObject */}
+                                            <PurchaseEditDrawer />
+                                            {/* <EditIcon fontSize="large" onClick={() => {
+                                                TODO: Add edit function linked to new API endpoint for purchase list updates
+                                                
+                                                 apiHandler("PUT", {id: params.id, body: JSON.stringify({
+                                                     purchases: props.userObject.purchases
+                                                 })})
+                                            }}/> */}
+                                            <IconButton onClick={async () => handleToggle()}>
+                                                <DeleteIcon fontSize='large' />
+                                            </IconButton>
                                         </>
                                     ) : (
                                         <>
-                                            <CheckCircleOutlineIcon fontSize="large" onClick={async () => {
-                                            const newDoc = await deleteHandler(params.id, item.uniqid);
-                                            props.updateUserObject(newDoc);
-                                            handleToggle();
-                                        }} />
-                                            <HighlightOffIcon fontSize="large" onClick={() => {
-                                                handleClick(item.uniqid);
+                                            <IconButton onClick={async () => {
+                                                const newDoc = await deleteHandler(params.id, item.uniqid);
+                                                props.updateUserObject(newDoc);
                                                 handleToggle();
-                                                }} />
+                                            }}>
+                                                <CheckCircleOutlineIcon fontSize="large" />
+                                            </IconButton>
+                                            <IconButton onClick={() => {
+                                                    handleClick(item.uniqid);
+                                                    handleToggle();
+                                                    }}>
+                                                <HighlightOffIcon fontSize="large" />
+                                            </IconButton>
                                         </>
                                     )}
                                 </Stack>
@@ -115,6 +128,10 @@ function Purchases(props) {
         </div>
     )
 };
+
+async function purchaseUpdateHandler(userId, body) {
+    apiHandler("PUT", {id: userId, body: JSON.stringify(body)})
+}
 
 async function deleteHandler(userId, purchaseId) {
     const newDoc = await apiHandler("DELETE", {id: userId, uniqid: purchaseId});
