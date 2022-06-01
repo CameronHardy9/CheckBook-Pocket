@@ -11,8 +11,8 @@ import apiHandler from "../utils/apiHandler";
 export default function PurchaseEditDrawer(props) {
     const [open, setOpen] = useState(false);
     const [fieldData, setFieldData] = useState({
-        store: undefined,
-        amount: undefined
+        store: props.purchase.store,
+        amount: props.purchase.amount
     })
 
     function toggleDrawer(){
@@ -21,7 +21,7 @@ export default function PurchaseEditDrawer(props) {
 
     async function updatePurchaseObject() {
         const updatedPurchaseObject = props.userObject.purchases.map((item) => {
-            if(item.uniqid === props.purchaseId) {
+            if(item.uniqid === props.purchase.uniqid) {
                 const newItem = {
                     ...item,
                     store: fieldData.store,
@@ -71,7 +71,7 @@ export default function PurchaseEditDrawer(props) {
                             id="store"
                             label="Store"
                             type="text"
-                            defaultValue=""
+                            defaultValue={fieldData.store}
                             helperText={""}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
@@ -87,7 +87,7 @@ export default function PurchaseEditDrawer(props) {
                             id="amount"
                             label="Amount"
                             type="number"
-                            defaultValue=""
+                            defaultValue={fieldData.amount}
                             helperText={""}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
