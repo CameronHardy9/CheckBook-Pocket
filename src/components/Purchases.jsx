@@ -68,15 +68,7 @@ function Purchases(props) {
                                 <Stack direction="row" spacing={15} justifyContent="center">
                                     {toggle ? (
                                         <>
-                                            {/* TODO: Add props to PurchaseEditDrawer for updating userObject */}
                                             <PurchaseEditDrawer purchaseId={item.uniqid} userObject={props.userObject} updateUserObject={props.updateUserObject}/>
-                                            {/* <EditIcon fontSize="large" onClick={() => {
-                                                TODO: Add edit function linked to new API endpoint for purchase list updates
-                                                
-                                                 apiHandler("PUT", {id: params.id, body: JSON.stringify({
-                                                     purchases: props.userObject.purchases
-                                                 })})
-                                            }}/> */}
                                             <IconButton onClick={async () => handleToggle()}>
                                                 <DeleteIcon fontSize='large' />
                                             </IconButton>
