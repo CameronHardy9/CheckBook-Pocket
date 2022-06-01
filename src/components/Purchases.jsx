@@ -68,7 +68,7 @@ function Purchases(props) {
                                 <Stack direction="row" spacing={15} justifyContent="center">
                                     {toggle ? (
                                         <>
-                                            <PurchaseEditDrawer purchaseId={item.uniqid} userObject={props.userObject} updateUserObject={props.updateUserObject}/>
+                                            <PurchaseEditDrawer purchase={item} userObject={props.userObject} updateUserObject={props.updateUserObject}/>
                                             <IconButton onClick={async () => handleToggle()}>
                                                 <DeleteIcon fontSize='large' />
                                             </IconButton>
