@@ -32,16 +32,17 @@ export default function PurchaseEditDrawer(props) {
             return item;
         })
 
-        //TODO: FIX BUG
-        // await apiHandler('PUT', {
-        //     id: props.userObject.id, 
-        //     body: JSON.stringify({purchases: updatedPurchaseObject})
-        //     })
+        const result = await apiHandler('PUT', {
+            id: props.userObject._id, 
+            body: {purchases: updatedPurchaseObject}
+            })
 
-        props.updateUserObject({
-            ...props.userObject,
-            purchases: updatedPurchaseObject
-        });
+        if(result.modifiedCount) {
+            props.updateUserObject({
+                ...props.userObject,
+                purchases: updatedPurchaseObject
+            });
+        }
     }
     
     return (
