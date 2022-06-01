@@ -10,9 +10,21 @@ import apiHandler from "../utils/apiHandler";
 
 export default function PurchaseEditDrawer(props) {
     const [open, setOpen] = useState(false);
+
     const [fieldData, setFieldData] = useState({
         store: props.purchase.store,
         amount: props.purchase.amount
+    });
+
+    const [errors, setErrors] = useState({
+        store: {
+            error: false,
+            message: undefined
+        },
+        amount: {
+            error: false,
+            message: undefined
+        }
     })
 
     function toggleDrawer(){
@@ -67,12 +79,13 @@ export default function PurchaseEditDrawer(props) {
                     <h2 style={{padding: '20px 0'}}>Edit Purchase</h2>
                         <TextField
                             required
-                            error={false}
+                            error={errors.store.error}
                             id="store"
                             label="Store"
                             type="text"
+                            autoFocus={true}
                             defaultValue={fieldData.store}
-                            helperText={""}
+                            helperText={errors.store.message}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
                                 setFieldData({
@@ -83,12 +96,12 @@ export default function PurchaseEditDrawer(props) {
                         />
                         <TextField
                             required
-                            error={false}
+                            error={errors.amount.error}
                             id="amount"
                             label="Amount"
                             type="number"
                             defaultValue={fieldData.amount}
-                            helperText={""}
+                            helperText={errors.amount.message}
                             sx={{width: '80vw', maxWidth: '400px'}}
                             onChange={(e) => {
                                 setFieldData({
