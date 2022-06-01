@@ -6,7 +6,7 @@ async function apiHandler (method, body) {
     }
 
     if(method === "PUT" && body.body) {
-        string = "purchases"
+        string = "purchases";
     }
 
     if(method === "PUT" && body.store && body.amount && body.date) {
@@ -32,7 +32,7 @@ async function apiHandler (method, body) {
                 "Content-Type": "application/json"
             },
             method: method,
-            body: body?.body
+            body: JSON.stringify(body?.body)
         })
         let data = await response.json();
         return data;
