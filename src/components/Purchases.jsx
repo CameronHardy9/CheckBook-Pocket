@@ -121,10 +121,6 @@ function Purchases(props) {
     )
 };
 
-async function purchaseUpdateHandler(userId, body) {
-    apiHandler("PUT", {id: userId, body: JSON.stringify(body)})
-}
-
 async function deleteHandler(userId, purchaseId) {
     const newDoc = await apiHandler("DELETE", {id: userId, uniqid: purchaseId});
     return newDoc;
