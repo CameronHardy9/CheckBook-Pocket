@@ -55,6 +55,75 @@ export default function PurchaseEditDrawer(props) {
                 purchases: updatedPurchaseObject
             });
         }
+    };
+
+    function inputIsValid() {
+        const wordRegex = /\w+/g
+        const numRegex = /\d+/g
+
+        const tests = {
+            storeExists: {
+                field: 'store',
+                test: wordRegex.test(fieldData.store),
+                message: "Please enter a store name"
+            },
+            amountExists: {
+                field: 'amount',
+                test: numRegex.test(fieldData.amount),
+                message: "Please enter a purchase amount"
+            },
+            between1and30Letters: {
+                field: 'store',
+                test: fieldData.store.length >= 1 && fieldData.store.length <= 30,
+                message: "Store name must be between 1 and 30 characters"
+            },
+            between1and12Numbers: {
+                field: 'amount',
+                test: fieldData.amount.toString().length >= 1 && fieldData.amount.toString().length <= 12,
+                message: "Amount must be between 1 and 12 digits"
+            },
+            isNumber: {
+                field: 'amount',
+                test: !isNaN(Number(fieldData.amount)),
+                message: "Please only use numbers"
+            }
+        };
+
+        let failedTest = false;
+
+        for(const item in tests) {
+            if(tests[item].test === false) {
+                setErrors({
+                    ...errors,
+                    [tests[item].field]: {
+                        error: true,
+                        message: tests[item].message
+                    }
+                })
+                failedTest = true;
+            }
+        };
+
+        if(failedTest) {
+            return false;
+        }
+
+        clearErrors();
+        return true;
+    };
+
+    //TODO: FIX BUG - FUNCTION DOES NOT UPDATE STATE PROPERLY TO RESET ERRORS
+    function clearErrors() {
+        setErrors({
+            store: {
+                error: false,
+                message: undefined
+            },
+            amount: {
+                error: false,
+                message: undefined
+            }
+        });
     }
     
     return (
@@ -65,7 +134,14 @@ export default function PurchaseEditDrawer(props) {
             <Drawer
                 anchor="bottom"
                 open={open}
-                onClose={() => toggleDrawer()}
+                onClose={() => {
+                    toggleDrawer();
+                    clearErrors();
+                    setFieldData({
+                        store: props.purchase.store,
+                        amount: props.purchase.amount
+                    });
+                }}
             >
                 <Box
                     role="presentation"
@@ -87,7 +163,7 @@ export default function PurchaseEditDrawer(props) {
                             defaultValue={fieldData.store}
                             helperText={errors.store.message}
                             sx={{width: '80vw', maxWidth: '400px'}}
-                            onChange={(e) => {
+                            onBlur={(e) => {
                                 setFieldData({
                                     ...fieldData,
                                     store: e.target.value
@@ -103,16 +179,20 @@ export default function PurchaseEditDrawer(props) {
                             defaultValue={fieldData.amount}
                             helperText={errors.amount.message}
                             sx={{width: '80vw', maxWidth: '400px'}}
-                            onChange={(e) => {
+                            onBlur={(e) => {
                                 setFieldData({
                                     ...fieldData,
-                                    amount: Number(e.target.value)
+                                    amount: Number(Number(e.target.value).toFixed(2))
                                 })
                             }}
                         />
                         <Button onClick={() => {
-                            updatePurchaseObject();
-                            toggleDrawer();
+                            clearErrors();
+                            const result = inputIsValid();
+                            if(result === true) {
+                                updatePurchaseObject();
+                                toggleDrawer();
+                            }
                         }}>Update</Button>
                     </Stack>
                 </Box>
