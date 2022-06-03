@@ -1,22 +1,15 @@
-import {useState, useEffect} from 'react';
-import BudgetVisual from './BudgetVisual';
+import BudgetVisual from "./BudgetVisual";
 
 function Home(props) {
-    const [calc, setCalc] = useState(0)
-
-    useEffect(() => {
-        if (props.currBud > 0) {
-            setTimeout(() => {
-                setCalc((props.currBud / props.setBud) * 100)
-            }, 250)
-        }
-    }, [props.currBud, props.setBud])
-
     return (
-    <>
-        <BudgetVisual value={calc <= 0 ? 0 : calc} />
-    </>
-    )
+        <>
+            <BudgetVisual
+                value={
+                    (props.currBud / props.setBud) * 100
+                }
+            />
+        </>
+    );
 }
 
 export default Home;
