@@ -42,7 +42,7 @@ export default function BudgetVisual(props) {
                     color={
                         props.value < 0
                             ? 'error'
-                            : 'primary'
+                            : 'success'
                     }
                     variant="determinate"
                     value={colorCalc(props.value)}
