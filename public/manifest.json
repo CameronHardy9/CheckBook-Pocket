@@ -1,5 +1,5 @@
 {
-  "short_name": "CB-Pocket",
+  "short_name": "Checkbook",
   "name": "CheckBook-Pocket",
   "icons": [
     {
@@ -15,6 +15,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#1976d2",
   "background_color": "#ffffff"
 }
