@@ -26,7 +26,7 @@ async function apiHandler (method, body) {
     }
 
     try {
-        let response = await fetch(`https://family-budget-app-server.herokuapp.com/api/${body.id}/${string}`, {
+        let response = await fetch(`https://budget-server-sigma.vercel.app/api/${body.id}/${string}`, {
             mode: 'cors',
             headers: {
                 "Content-Type": "application/json"
